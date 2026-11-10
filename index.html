@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Изучение ИИ — AI Learning</title>
+<meta name="description" content="Простой путь от первого запроса до автоматизации работы с ИИ.">
+<style>
+:root{
+  --bg:#fff; --text:#111; --muted:#6e6e73; --line:#e7e7eb;
+  --card:#f5f5f7; --blue:#1677ff; --purple:#a100ff;
+  --radius:28px; --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+.nav{height:60px;display:flex;align-items:center;justify-content:space-between;max-width:var(--max);margin:auto;padding:0 22px;position:relative;z-index:5}
+.logo{font-size:25px;font-weight:700;letter-spacing:-2px}
+.navlinks{display:flex;gap:32px;font-size:14px;color:#333}
+.navlinks a:hover{color:#000}
+.actions{display:flex;gap:18px;align-items:center}
+.search{width:20px;height:20px;border:2px solid #111;border-radius:50%;position:relative}
+.search:after{content:"";position:absolute;width:8px;height:2px;background:#111;right:-6px;bottom:-3px;transform:rotate(45deg)}
+.menu{display:none;width:22px;height:16px;border-top:2px solid #111;border-bottom:2px solid #111;position:relative}
+.menu:after{content:"";position:absolute;left:0;right:0;top:5px;border-top:2px solid #111}
+.btn{display:inline-flex;align-items:center;gap:10px;background:#111;color:#fff;border:0;border-radius:999px;padding:13px 21px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-1px);background:#222}
+.btn.light{background:#fff;color:#111;border:1px solid var(--line)}
+.hero{max-width:var(--max);margin:auto;min-height:590px;padding:72px 22px 40px;display:grid;grid-template-columns:1fr 1fr;align-items:center;position:relative;overflow:hidden}
+.hero-copy{position:relative;z-index:2}
+.kicker{font-size:14px;color:var(--muted);margin-bottom:20px}
+h1{font-size:clamp(64px,8vw,116px);line-height:.86;letter-spacing:-7px;margin:0 0 30px;font-weight:750}
+.gradient{display:block;background:linear-gradient(100deg,#1677ff 5%,#7a4dff 48%,#d900ff 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:480px;font-size:21px;line-height:1.35;color:var(--muted);letter-spacing:-.4px;margin:0 0 28px}
+.hero-art{height:500px;position:relative;display:flex;align-items:center;justify-content:center}
+.glow{position:absolute;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(93,157,255,.24),rgba(158,87,255,.15) 40%,transparent 70%);filter:blur(8px)}
+.orb{width:330px;height:330px;border-radius:45% 55% 52% 48%;background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(174,203,255,.45) 38%,rgba(185,141,255,.42) 75%,rgba(255,255,255,.8));box-shadow:inset 0 0 35px rgba(255,255,255,.8),0 30px 80px rgba(76,103,255,.18);border:1px solid rgba(80,120,255,.25);transform:rotate(-8deg);position:relative}
+.orb:before{content:"";position:absolute;inset:50px 80px;border:5px solid rgba(50,110,255,.65);border-right-color:rgba(180,50,255,.7);border-radius:50%;transform:rotate(22deg)}
+.orb:after{content:"";position:absolute;width:115px;height:22px;border-radius:50%;background:rgba(255,255,255,.6);filter:blur(10px);left:95px;top:75px;transform:rotate(-18deg)}
+.arc{position:absolute;width:570px;height:330px;border:1px solid rgba(96,125,255,.22);border-left:0;border-bottom:0;border-radius:0 100% 0 0;transform:rotate(-15deg);right:-60px;top:100px}
+.section{max-width:var(--max);margin:auto;padding:72px 22px}
+.section h2{font-size:48px;letter-spacing:-3px;margin:0 0 30px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.step{background:var(--card);border:1px solid #f0f0f2;border-radius:25px;padding:25px;min-height:180px;position:relative}
+.num{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:28px}
+.step h3{font-size:21px;margin:0 0 7px;letter-spacing:-.5px}
+.step p{color:var(--muted);font-size:14px;line-height:1.35;margin:0}
+.arrow{position:absolute;right:20px;top:20px;font-size:24px;color:#888}
+.path{display:grid;grid-template-columns:.75fr 1.25fr;gap:55px;align-items:center}
+.path-copy h2{margin-bottom:15px}
+.path-copy p{font-size:18px;line-height:1.45;color:var(--muted);max-width:360px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{min-height:230px;border-radius:28px;padding:25px;position:relative;overflow:hidden;background:#f4f4f6}
+.card:nth-child(2){background:linear-gradient(135deg,#edf7ff,#dceeff)}
+.card:nth-child(3){background:linear-gradient(135deg,#fff4e8,#ffe9d5)}
+.card:nth-child(4){background:linear-gradient(135deg,#f4efff,#e9ddff)}
+.icon{font-size:42px;margin-bottom:45px}
+.card h3{font-size:19px;margin:0 0 7px}
+.card p{font-size:14px;color:var(--muted);margin:0;max-width:200px;line-height:1.35}
+.circle{position:absolute;right:20px;bottom:20px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.75);display:grid;place-items:center;font-size:20px}
+.cta{margin:25px 0 10px}
+.footer{border-top:1px solid var(--line);padding:30px 22px;color:var(--muted);font-size:13px;text-align:center}
+@media(max-width:800px){
+ .nav{height:58px;padding:0 20px}
+ .navlinks{display:none}.menu{display:block}.actions{gap:18px}
+ .hero{grid-template-columns:1fr;min-height:auto;padding:38px 20px 25px}
+ h1{font-size:66px;letter-spacing:-5px;line-height:.88}
+ .lead{font-size:18px}
+ .hero-art{height:360px;margin-top:-5px}
+ .orb{width:260px;height:260px}.glow{width:350px;height:350px}.arc{width:440px;height:260px;right:-130px}
+ .section{padding:55px 20px}
+ .section h2{font-size:38px;letter-spacing:-2px}
+ .steps{grid-template-columns:1fr;gap:10px}
+ .step{min-height:130px;padding:22px}
+ .num{margin-bottom:18px}.step h3{font-size:20px}
+ .path{grid-template-columns:1fr;gap:28px}.path-copy p{font-size:16px}
+ .cards{grid-template-columns:1fr 1fr;gap:10px}
+ .card{min-height:210px;padding:19px;border-radius:23px}.icon{font-size:34px;margin-bottom:38px}.card h3{font-size:17px}
+}
+@media(max-width:470px){
+ h1{font-size:58px}
+ .cards{grid-template-columns:1fr}
+ .card{min-height:185px}.icon{margin-bottom:30px}
+ .hero-art{height:320px}
+}
+
+
+/* ===== Dark mode ===== */
+html[data-theme="dark"]{
+  --bg:#050506;
+  --text:#f5f5f7;
+  --muted:#a1a1a6;
+  --line:#29292d;
+  --card:#151518;
+  --blue:#2997ff;
+  --purple:#bf5af2;
+}
+html[data-theme="dark"] body{background:var(--bg);color:var(--text)}
+html[data-theme="dark"] .nav.scrolled{background:rgba(5,5,6,.78);box-shadow:0 1px 0 rgba(255,255,255,.08)}
+html[data-theme="dark"] .navlinks{color:#d1d1d6}
+html[data-theme="dark"] .search{border-color:#f5f5f7}
+html[data-theme="dark"] .search:after{background:#f5f5f7}
+html[data-theme="dark"] .btn.light{background:#151518;color:#f5f5f7;border-color:#303035}
+html[data-theme="dark"] .step,
+html[data-theme="dark"] .card{background:#151518;border-color:#29292d}
+html[data-theme="dark"] .step:hover,
+html[data-theme="dark"] .card:hover{box-shadow:0 24px 70px rgba(0,0,0,.42);border-color:rgba(100,150,255,.25)}
+html[data-theme="dark"] .step h3,
+html[data-theme="dark"] .card h3,
+html[data-theme="dark"] .section h2{color:#f5f5f7}
+html[data-theme="dark"] .card:nth-child(2){background:linear-gradient(135deg,#0c1b2b,#111827)}
+html[data-theme="dark"] .card:nth-child(3){background:linear-gradient(135deg,#24170d,#17110c)}
+html[data-theme="dark"] .card:nth-child(4){background:linear-gradient(135deg,#1b1227,#130d1d)}
+html[data-theme="dark"] .circle{background:rgba(255,255,255,.08);color:#fff}
+html[data-theme="dark"] .course-sidebar{background:rgba(20,20,23,.82);border-color:#29292d}
+html[data-theme="dark"] .module-btn{color:#ddd}
+html[data-theme="dark"] .module-btn:hover{background:#222226}
+html[data-theme="dark"] .module-btn.active{background:#f5f5f7;color:#111}
+html[data-theme="dark"] .course-hero{background:linear-gradient(135deg,#101521,#08090c 55%,#17101d);border-color:#29292d}
+html[data-theme="dark"] .course-hero:after{background:radial-gradient(circle,rgba(93,143,255,.20),transparent 68%)}
+html[data-theme="dark"] .pill{background:rgba(255,255,255,.06);border-color:#303035;color:#c8c8cc}
+html[data-theme="dark"] .progress-line{background:#29292d}
+html[data-theme="dark"] .lesson{background:#0d0d0f;border-color:#29292d}
+html[data-theme="dark"] .lesson-block{border-color:#29292d}
+html[data-theme="dark"] .lesson-block p,
+html[data-theme="dark"] .lesson-block li{color:#c7c7cc}
+html[data-theme="dark"] .example{background:#17171a;color:#eee}
+html[data-theme="dark"] .challenge{background:linear-gradient(135deg,#111827,#1b1025);border-color:#29292d}
+html[data-theme="dark"] textarea.answer{background:#111114;color:#f5f5f7;border-color:#36363c}
+html[data-theme="dark"] .quiz-option{background:#111114;color:#eee;border-color:#36363c}
+html[data-theme="dark"] .quiz-option.correct{background:#102317;border-color:#3e8b5a}
+html[data-theme="dark"] .quiz-option.wrong{background:#291315;border-color:#9c4d54}
+html[data-theme="dark"] .footer{border-color:#29292d}
+html[data-theme="dark"] .modal{background:rgba(0,0,0,.62)}
+html[data-theme="dark"] .modal-box{background:#151518;color:#f5f5f7}
+html[data-theme="dark"] .modal-close{background:#252529;color:#fff}
+
+/* Theme button */
+.theme-toggle{
+  width:40px;height:40px;border:1px solid var(--line);border-radius:50%;
+  background:rgba(255,255,255,.55);color:var(--text);cursor:pointer;
+  display:grid;place-items:center;font-size:17px;transition:transform .25s,background .25s,border-color .25s
+}
+.theme-toggle:hover{transform:rotate(12deg) scale(1.05)}
+html[data-theme="dark"] .theme-toggle{background:#151518}
+
+/* More subtle ambient animation */
+.ambient{
+  position:fixed;pointer-events:none;z-index:-1;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(41,151,255,.10),transparent 68%);
+  filter:blur(15px);left:-180px;top:28%;animation:ambientFloat 10s ease-in-out infinite alternate
+}
+.ambient.two{left:auto;right:-210px;top:58%;background:radial-gradient(circle,rgba(191,90,242,.08),transparent 68%);animation-delay:-4s}
+@keyframes ambientFloat{from{transform:translate3d(0,-20px,0)}to{transform:translate3d(35px,30px,0)}}
+@keyframes darkGlow{0%,100%{box-shadow:0 0 0 rgba(41,151,255,0)}50%{box-shadow:0 0 40px rgba(41,151,255,.12)}}
+html[data-theme="dark"] .course-hero{animation:darkGlow 6s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){
+  .ambient,.ambient.two,html[data-theme="dark"] .course-hero{animation:none!important}
+}
+
+/* ===== Interactive motion layer ===== */
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,30%),rgba(93,143,255,.07),transparent 28%);
+  transition:background .35s ease;
+}
+.nav{transition:background .35s ease,box-shadow .35s ease,backdrop-filter .35s ease}
+.nav.scrolled{position:sticky;top:0;background:rgba(255,255,255,.78);backdrop-filter:blur(20px);box-shadow:0 1px 0 rgba(0,0,0,.07)}
+.hero-copy>*{opacity:0;transform:translateY(24px);animation:rise .8s cubic-bezier(.2,.8,.2,1) forwards}
+.hero-copy .kicker{animation-delay:.05s}
+.hero-copy h1{animation-delay:.12s}
+.hero-copy .lead{animation-delay:.2s}
+.hero-copy .btn{animation-delay:.3s}
+.hero-art{opacity:0;transform:translateY(18px) scale(.97);animation:heroIn 1.1s .18s cubic-bezier(.2,.8,.2,1) forwards}
+.orb{animation:float 7s ease-in-out infinite}
+.glow{animation:pulse 5s ease-in-out infinite}
+.arc{animation:arcMove 8s ease-in-out infinite}
+.step,.card{
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease,border-color .35s ease;
+  will-change:transform;
+}
+.step:hover,.card:hover{transform:translateY(-7px);box-shadow:0 20px 55px rgba(20,30,70,.10);border-color:rgba(80,120,255,.18)}
+.step.active{transform:translateY(-4px);box-shadow:0 15px 40px rgba(40,90,220,.12);outline:2px solid rgba(80,120,255,.12)}
+.step.active .num{color:#1677ff}
+.card .icon{transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.card:hover .icon{transform:translateY(-4px) scale(1.06) rotate(-2deg)}
+.circle{transition:transform .3s ease,background .3s ease}
+.card:hover .circle{transform:translateX(3px);background:#fff}
+.btn{position:relative;overflow:hidden}
+.btn::after{
+  content:"";position:absolute;width:20px;height:20px;border-radius:50%;
+  background:rgba(255,255,255,.35);transform:scale(0);opacity:0;left:var(--rx,50%);top:var(--ry,50%);
+  transition:transform .5s ease,opacity .5s ease;
+}
+.btn:active::after{transform:scale(10);opacity:1;transition:0s}
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.visible{opacity:1;transform:none}
+.progress{position:fixed;left:0;top:0;height:3px;width:0;background:linear-gradient(90deg,#1677ff,#a100ff);z-index:20}
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);
+  padding:13px 18px;border-radius:999px;background:rgba(17,17,17,.92);color:#fff;
+  font-size:14px;opacity:0;pointer-events:none;transition:.35s;z-index:30;
+  box-shadow:0 12px 40px rgba(0,0,0,.18)
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);
+  display:grid;place-items:center;opacity:0;pointer-events:none;transition:.3s;z-index:25;padding:20px
+}
+.modal.open{opacity:1;pointer-events:auto}
+.modal-box{width:min(520px,100%);background:#fff;border-radius:30px;padding:30px;box-shadow:0 30px 100px rgba(0,0,0,.2);transform:translateY(20px) scale(.98);transition:.3s}
+.modal.open .modal-box{transform:none}
+.modal-box h3{font-size:30px;letter-spacing:-1.5px;margin:0 0 12px}
+.modal-box p{color:var(--muted);line-height:1.5}
+.modal-close{float:right;border:0;background:var(--card);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes heroIn{to{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:rotate(-8deg) translateY(0)}50%{transform:rotate(-5deg) translateY(-12px)}}
+@keyframes pulse{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+@keyframes arcMove{0%,100%{transform:rotate(-15deg) translateX(0)}50%{transform:rotate(-12deg) translateX(-15px)}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .hero-copy>*{opacity:1;transform:none}.hero-art{opacity:1;transform:none}.reveal{opacity:1;transform:none}
+}
+
+
+/* ===== Full course UI ===== */
+.course-app{max-width:var(--max);margin:auto;padding:0 22px 80px}
+.course-layout{display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:start}
+.course-sidebar{position:sticky;top:82px;background:rgba(245,245,247,.78);backdrop-filter:blur(18px);border:1px solid #e9e9ec;border-radius:26px;padding:18px}
+.course-sidebar h3{margin:5px 8px 16px;font-size:15px}
+.module-btn{width:100%;border:0;background:transparent;text-align:left;padding:13px 12px;border-radius:16px;cursor:pointer;color:#333;display:flex;gap:10px;align-items:flex-start}
+.module-btn:hover{background:#fff}
+.module-btn.active{background:#111;color:#fff}
+.module-btn .mnum{font-size:12px;opacity:.65;margin-top:2px}
+.module-btn strong{display:block;font-size:14px}
+.module-btn small{display:block;opacity:.65;margin-top:4px;line-height:1.3}
+.course-main{min-width:0}
+.course-hero{background:linear-gradient(135deg,#f5f7ff,#fff 55%,#f7f0ff);border:1px solid #ececf1;border-radius:32px;padding:34px;position:relative;overflow:hidden}
+.course-hero:after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;right:-100px;top:-110px;background:radial-gradient(circle,rgba(123,94,255,.22),transparent 68%)}
+.course-hero>*{position:relative;z-index:1}
+.eyebrow{font-size:13px;color:#6e6e73;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.course-hero h2{font-size:46px;letter-spacing:-3px;margin:12px 0 12px}
+.course-hero p{font-size:18px;line-height:1.5;color:var(--muted);max-width:720px}
+.course-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.pill{background:rgba(255,255,255,.8);border:1px solid #e8e8ec;border-radius:999px;padding:8px 12px;font-size:12px;color:#555}
+.progress-wrap{margin-top:24px}
+.progress-line{height:8px;background:#e7e7eb;border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#1677ff,#a100ff);border-radius:999px;transition:width .5s}
+.progress-label{display:flex;justify-content:space-between;color:#777;font-size:12px;margin-top:7px}
+.lesson{margin-top:18px;background:#fff;border:1px solid #e9e9ec;border-radius:28px;padding:34px}
+.lesson h3{font-size:32px;letter-spacing:-1.5px;margin:0 0 14px}
+.lesson-intro{font-size:17px;color:var(--muted);line-height:1.55;margin-bottom:26px}
+.lesson-block{padding:20px 0;border-top:1px solid #eee}
+.lesson-block:first-of-type{border-top:0;padding-top:0}
+.lesson-block h4{font-size:18px;margin:0 0 10px}
+.lesson-block p,.lesson-block li{font-size:15px;line-height:1.55;color:#424247}
+.lesson-block ul{padding-left:22px}
+.example{background:#f5f5f7;border-radius:18px;padding:17px;margin:14px 0;color:#222}
+.example strong{display:block;margin-bottom:7px}
+.challenge{margin-top:24px;background:linear-gradient(135deg,#f7f9ff,#faf5ff);border:1px solid #e7e8f2;border-radius:22px;padding:22px}
+.challenge h4{margin:0 0 8px}
+textarea.answer{width:100%;min-height:130px;border:1px solid #dddde3;border-radius:15px;padding:14px;font:inherit;resize:vertical;background:#fff;margin-top:12px}
+.quiz{margin-top:22px}
+.quiz-option{display:block;width:100%;text-align:left;background:#fff;border:1px solid #dddde3;border-radius:14px;padding:13px 15px;margin:9px 0;cursor:pointer}
+.quiz-option:hover{border-color:#9aaaff}
+.quiz-option.correct{background:#eaf8ef;border-color:#4aa36a}
+.quiz-option.wrong{background:#fff0f0;border-color:#df6c6c}
+.feedback{font-size:13px;color:#666;margin-top:10px;min-height:20px}
+.lesson-actions{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:22px;border-top:1px solid #eee}
+.course-empty{padding:35px;text-align:center;color:var(--muted)}
+.cert{display:none;margin-top:20px;padding:26px;border-radius:26px;background:#111;color:#fff}
+.cert.show{display:block}
+@media(max-width:850px){
+ .course-app{padding:0 18px 60px}
+ .course-layout{grid-template-columns:1fr}
+ .course-sidebar{position:relative;top:auto;overflow:auto;white-space:nowrap;padding:10px;display:flex;gap:6px}
+ .course-sidebar h3{display:none}
+ .module-btn{display:inline-flex;width:auto;min-width:190px}
+ .module-btn small{white-space:normal}
+ .course-hero{padding:27px 23px}
+ .course-hero h2{font-size:37px}
+ .lesson{padding:25px 21px}
+ .lesson h3{font-size:27px}
+ .lesson-actions{flex-direction:column}
+ .lesson-actions .btn{justify-content:center}
+}
+
+</style>
+</head>
+<body>
+<div class="ambient"></div><div class="ambient two"></div>
+<div class="progress" id="progress"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<header class="nav">
+  <a class="logo" href="#"></a>
+  <nav class="navlinks">
+    <a href="#roadmap">Обучение</a><a href="#tools">Инструменты</a><a href="#roadmap">Практика</a><a href="#courses">Ресурсы</a><a href="#footer">Сообщество</a>
+  </nav>
+  <div class="actions"><span class="search" aria-label="Поиск"></span><button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">☾</button><a class="btn" href="#courses">Начать сейчас</a><span class="menu" aria-label="Меню"></span></div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <div class="kicker">Практический курс</div>
+    <h1>Изучение<span class="gradient">ИИ</span></h1>
+    <p class="lead">Простой и понятный путь от первого запроса до автоматизации вашей работы.</p>
+    <a class="btn" href="#roadmap">Начать обучение <span>→</span></a>
+  </div>
+  <div class="hero-art" aria-hidden="true"><div class="glow"></div><div class="orb"></div><div class="arc"></div></div>
+</section>
+
+
+<section class="course-app reveal" id="course">
+  <div class="course-layout">
+    <aside class="course-sidebar" id="moduleNav">
+      <h3>Программа курса</h3>
+    </aside>
+    <div class="course-main">
+      <div class="course-hero">
+        <div class="eyebrow">Практический курс · 4 модуля</div>
+        <h2 id="courseTitle">Работа с ИИ с нуля</h2>
+        <p id="courseDesc">Поймите, как работает современный ИИ, научитесь ставить задачи моделям и соберите собственные рабочие AI-сценарии.</p>
+        <div class="course-meta"><span class="pill">Начальный уровень</span><span class="pill">8 уроков</span><span class="pill">Практика</span><span class="pill">≈ 4 недели</span></div>
+        <div class="progress-wrap">
+          <div class="progress-line"><div class="progress-fill" id="courseProgress"></div></div>
+          <div class="progress-label"><span id="progressText">0% курса</span><span id="lessonCount">Урок 1 из 8</span></div>
+        </div>
+      </div>
+
+      <article class="lesson" id="lessonArea"></article>
+      <div class="cert" id="certificate">
+        <div class="eyebrow" style="color:#aaa">Курс завершён</div>
+        <h3 style="font-size:28px;margin:8px 0">Вы прошли «Работа с ИИ с нуля»</h3>
+        <p style="color:#bbb;margin:0">Теперь у вас есть базовая система: понимать ИИ → формулировать задачи → проверять результат → применять в работе → автоматизировать.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="roadmap">
+  <h2>Ваша дорожная карта</h2>
+  <div class="steps">
+    <article class="step" tabindex="0" data-step="1"><div class="num">01</div><h3>С чего начать</h3><p>Познакомьтесь с ИИ и его возможностями.</p><span class="arrow">→</span></article>
+    <article class="step" tabindex="0" data-step="2"><div class="num">02</div><h3>Что изучать</h3><p>Освойте промпты и ключевые навыки.</p><span class="arrow">→</span></article>
+    <article class="step" tabindex="0" data-step="3"><div class="num">03</div><h3>Как применять</h3><p>Используйте ИИ в реальных задачах.</p><span class="arrow">→</span></article>
+    <article class="step" tabindex="0" data-step="4"><div class="num">04</div><h3>Как автоматизировать</h3><p>Упростите рутину и экономьте время.</p><span class="arrow">→</span></article>
+  </div>
+</section>
+
+<section class="section path reveal" id="courses">
+  <div class="path-copy">
+    <h2>Выберите свой путь обучения</h2>
+    <p>Гибкий формат: от коротких уроков до продвинутых практических сценариев.</p>
+    <a class="btn cta" href="#tools">Перейти к курсам <span>→</span></a>
+  </div>
+  <div class="cards">
+    <article class="card" tabindex="0" data-course="ChatGPT"><div class="icon">◉</div><h3>Работа с ChatGPT</h3><p>Эффективные запросы и полезные сценарии</p><div class="circle">→</div></article>
+    <article class="card" tabindex="0" data-course="Генерация контента"><div class="icon">◒</div><h3>Генерация контента</h3><p>Тексты, изображения и идеи</p><div class="circle">→</div></article>
+    <article class="card" tabindex="0" data-course="ИИ-инструменты Google"><div class="icon">G</div><h3>ИИ-инструменты Google</h3><p>Gemini и другие сервисы</p><div class="circle">→</div></article>
+    <article class="card" tabindex="0" data-course="Автоматизация с ИИ"><div class="icon">▣</div><h3>Автоматизация с ИИ</h3><p>Экономьте время на рутине</p><div class="circle">→</div></article>
+  </div>
+</section>
+
+<section class="section reveal" id="tools">
+  <h2>Начните с одного рабочего процесса</h2>
+  <p class="lead">Выберите задачу, которую повторяете каждую неделю, и превратите её в понятный AI-workflow.</p>
+  <a class="btn" href="#footer">Попробовать <span>→</span></a>
+</section>
+</main>
+
+
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Закрыть">×</button>
+    <div class="kicker">Следующий шаг</div>
+    <h3 id="modalTitle">Начинаем обучение</h3>
+    <p id="modalText">Выберите направление — дальше здесь можно подключить полноценный урок, форму регистрации или страницу курса.</p>
+    <a class="btn" href="#tools" id="modalAction">Перейти дальше →</a>
+  </div>
+</div>
+
+<footer class="footer" id="footer">Изучение ИИ · Практика важнее теории<br><strong>Создатель гайда: Кожевникова К.В.</strong></footer>
+
+<script>
+(() => {
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+
+  // Header state + scroll progress
+  const nav = $('.nav'), progress = $('#progress');
+  const updateScroll = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progress.style.width = `${max ? (scrollY / max) * 100 : 0}%`;
+    nav.classList.toggle('scrolled', scrollY > 12);
+  };
+  addEventListener('scroll', updateScroll, {passive:true});
+  updateScroll();
+
+  // Pointer light follows cursor on desktop
+  addEventListener('pointermove', e => {
+    document.documentElement.style.setProperty('--mx', `${e.clientX}px`);
+    document.documentElement.style.setProperty('--my', `${e.clientY}px`);
+  }, {passive:true});
+
+  // Reveal sections on entry
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, {threshold:.12});
+  $$('.reveal').forEach(el => observer.observe(el));
+
+  // Button ripple position
+  $$('.btn').forEach(btn => {
+    btn.addEventListener('pointerdown', e => {
+      const r = btn.getBoundingClientRect();
+      btn.style.setProperty('--rx', `${e.clientX-r.left}px`);
+      btn.style.setProperty('--ry', `${e.clientY-r.top}px`);
+    });
+  });
+
+  // Roadmap interactions
+  const steps = $$('.step');
+  const toast = $('#toast');
+  let toastTimer;
+  function showToast(text){
+    toast.textContent = text;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+  steps.forEach(step => {
+    const activate = () => {
+      steps.forEach(s => s.classList.remove('active'));
+      step.classList.add('active');
+      showToast(`Этап ${step.dataset.step}: ${step.querySelector('h3').textContent}`);
+    };
+    step.addEventListener('click', activate);
+    step.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+    });
+  });
+
+  // Course modal
+  const modal = $('#modal'), title = $('#modalTitle'), text = $('#modalText');
+  const descriptions = {
+    'ChatGPT':'Практика: структура промпта, контекст, проверка результата и готовые сценарии для работы.',
+    'Генерация контента':'Практика: идеи, тексты, изображения, редактура и быстрые контент-пайплайны.',
+    'ИИ-инструменты Google':'Практика: как встроить современные AI-инструменты в поиск, документы и рабочие процессы.',
+    'Автоматизация с ИИ':'Практика: превращаем повторяющуюся задачу в workflow и связываем ИИ с вашими инструментами.'
+  };
+  const openCourse = card => {
+    const name = card.dataset.course;
+    title.textContent = name;
+    text.textContent = descriptions[name] || 'Здесь будет подробная программа выбранного направления.';
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  };
+  const closeModal = () => {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  };
+  $$('.card').forEach(card => {
+    card.addEventListener('click', () => openCourse(card));
+    card.addEventListener('keydown', e => {
+      if(e.key==='Enter' || e.key===' ') { e.preventDefault(); openCourse(card); }
+    });
+  });
+  $('#modalClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+  addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+  // Mobile menu
+  const menu = $('.menu');
+  if(menu){
+    menu.addEventListener('click', () => {
+      const links = $('.navlinks');
+      const open = links.classList.toggle('mobile-open');
+      if(open){
+        links.style.cssText='display:flex;position:absolute;left:20px;right:20px;top:58px;flex-direction:column;gap:0;background:rgba(255,255,255,.94);backdrop-filter:blur(20px);padding:10px;border-radius:20px;box-shadow:0 18px 60px rgba(0,0,0,.12)';
+        links.querySelectorAll('a').forEach(a=>a.style.cssText='padding:14px;font-size:16px');
+      } else links.removeAttribute('style');
+    });
+  }
+
+  // Parallax hero art
+  const art = $('.hero-art');
+  addEventListener('pointermove', e => {
+    if(matchMedia('(pointer:fine)').matches && art){
+      const x = (e.clientX / innerWidth - .5) * 10;
+      const y = (e.clientY / innerHeight - .5) * 8;
+      art.style.transform = `translate(${x}px,${y}px)`;
+    }
+  }, {passive:true});
+  addEventListener('pointerleave', () => { if(art) art.style.transform=''; });
+})();
+</script>
+
+
+<script>
+(() => {
+  const modules = [
+    {
+      title:"Модуль 1. Основы ИИ", desc:"Что такое генеративный ИИ и как использовать его без магии и завышенных ожиданий.",
+      lessons:[
+        {title:"1. Как устроен современный ИИ",intro:"Разбираемся, что такое языковая модель, почему она умеет работать с текстом и почему иногда уверенно ошибается.",
+         blocks:[
+          ["Что важно понять","ИИ — не поисковик и не человек. Модель строит ответ на основе закономерностей в данных и контекста, который вы ей дали."],
+          ["Три правила работы","1) Давайте контекст. 2) Формулируйте конкретный результат. 3) Проверяйте критичные факты."],
+          ["Практика","Возьмите одну реальную рабочую задачу и опишите её в двух предложениях. Затем добавьте: кто получатель результата, какой нужен формат и какие ограничения есть."]
+         ],quiz:{q:"Что из этого наиболее важно проверять самостоятельно?",opts:["Любой ответ ИИ без исключения","Критичные факты, цифры и решения","Только длину ответа","Только стиль"],a:1}},
+        {title:"2. Где ИИ действительно полезен",intro:"Учимся отличать задачи, где ИИ экономит время, от задач, где его результат требует особенно жёсткой проверки.",
+         blocks:[
+          ["Сильные сценарии","Черновики, структурирование, суммаризация, преобразование текста, генерация вариантов, анализ предоставленных данных."],
+          ["Осторожные сценарии","Медицина, право, финансы, безопасность, важные расчёты и факты — здесь ИИ может быть помощником, но не единственным источником истины."],
+          ["Мини-задание","Составьте список из 5 повторяющихся задач вашей работы. Пометьте три из них, где ИИ потенциально может сократить время."]
+         ],quiz:{q:"Какая задача обычно хорошо подходит для ИИ?",opts:["Структурировать длинный документ","Самостоятельно принять юридическое решение","Гарантировать будущий результат","Заменить проверку важных цифр"],a:0}}
+      ]
+    },
+    {
+      title:"Модуль 2. Промптинг", desc:"Научитесь получать от моделей стабильные и полезные результаты.",
+      lessons:[
+        {title:"3. Формула хорошего запроса",intro:"Роль + задача + контекст + ограничения + формат + критерии качества.",
+         blocks:[
+          ["Шаблон","РОЛЬ: кем должен быть ИИ. ЗАДАЧА: что сделать. КОНТЕКСТ: для кого и зачем. ОГРАНИЧЕНИЯ: объём, стиль, запреты. ФОРМАТ: как вернуть результат."],
+          ["Пример","Ты — редактор деловой переписки. Перепиши письмо клиенту так, чтобы оно звучало уверенно и доброжелательно. Сохрани факты. До 120 слов. Верни только готовое письмо."],
+          ["Практика","Перепишите один свой обычный запрос по этой формуле. Затем попросите ИИ указать, какой информации ему не хватает."]
+         ],quiz:{q:"Что сильнее всего повышает предсказуемость результата?",opts:["Очень длинный запрос","Конкретная задача, контекст и формат","Использование только английского","Добавление случайных примеров"],a:1}},
+        {title:"4. Итерации и контроль качества",intro:"Сильный результат редко получается с первой попытки. Учимся улучшать ответ системно.",
+         blocks:[
+          ["Цикл","Запрос → результат → критика → уточнение → новая версия."],
+          ["Полезная инструкция","Попросите модель сначала перечислить недостающие данные, затем предложить решение. Для сложной задачи разбивайте работу на этапы."],
+          ["Практика","Возьмите вчерашний запрос. Добавьте критерии хорошего результата и попросите ИИ проверить собственный ответ по этим критериям."]
+         ],quiz:{q:"Что делать, если первый ответ слабый?",opts:["Сразу бросить задачу","Сделать итерацию: уточнить контекст и критерии","Попросить ответ в капслоке","Увеличить количество эмодзи"],a:1}}
+      ]
+    },
+    {
+      title:"Модуль 3. ИИ в работе", desc:"Переносим навыки в документы, коммуникацию, аналитику и обучение.",
+      lessons:[
+        {title:"5. Документы и информация",intro:"Используем ИИ как слой обработки информации: извлечь, сравнить, структурировать, найти противоречия.",
+         blocks:[
+          ["Workflow","Документ → краткое резюме → ключевые пункты → вопросы → таблица действий."],
+          ["Правило безопасности","Не загружайте конфиденциальные или чувствительные данные в сервис без понимания его политики и разрешений вашей организации."],
+          ["Практика","Возьмите обезличенный документ и попросите ИИ сделать таблицу: тезис / доказательство / риск / действие."]
+         ],quiz:{q:"Как лучше работать с большим документом?",opts:["Попросить «прочитать и всё запомнить»","Разбить задачу на извлечение, анализ и вывод","Удалить контекст","Не задавать формат"],a:1}},
+        {title:"6. Рабочие сценарии",intro:"Собираем повторяемые процессы, которые можно запускать снова и снова.",
+         blocks:[
+          ["Пять зон","Письма и встречи · документы · аналитика · контент · обучение."],
+          ["Шаблон workflow","Входные данные → инструкция → промежуточная проверка → результат → финальная проверка."],
+          ["Практика","Выберите один еженедельный процесс. Запишите его шаги и отметьте, где ИИ может помочь, а где обязательно нужен человек."]
+         ],quiz:{q:"Что превращает разовый промпт в рабочую систему?",opts:["Случайность","Повторяемый workflow с понятными входами и проверкой","Более яркий дизайн","Максимальная длина запроса"],a:1}}
+      ]
+    },
+    {
+      title:"Модуль 4. Автоматизация", desc:"Переходим от отдельных запросов к связкам ИИ с вашими инструментами и процессами.",
+      lessons:[
+        {title:"7. От промпта к автоматизации",intro:"Когда одна и та же задача повторяется, её можно превратить в workflow и затем автоматизировать.",
+         blocks:[
+          ["Сначала стандартизируйте","Если процесс нельзя описать шагами, его рано автоматизировать. Сначала создайте стабильный ручной сценарий."],
+          ["Пример","Новая заявка → извлечение данных → классификация → черновик ответа → человек проверяет → отправка."],
+          ["Практика","Нарисуйте свой процесс стрелками. Выделите вход, действия ИИ, действия человека и финальный результат."]
+         ],quiz:{q:"Что делать перед автоматизацией?",opts:["Сразу подключить десять сервисов","Сначала стабилизировать ручной процесс","Убрать человека из процесса","Не измерять результат"],a:1}},
+        {title:"8. Финальный проект",intro:"Соберите собственную систему применения ИИ для одной реальной рабочей задачи.",
+         blocks:[
+          ["Проект","Выберите повторяющуюся задачу → опишите результат → создайте шаблон запроса → добавьте проверку → протестируйте на 3 примерах → измерьте экономию времени."],
+          ["Критерии готовности","Результат повторяемый, ошибки понятны, человек знает где проверить, а процесс экономит время."],
+          ["Следующий уровень","После этого можно изучать API, no-code/low-code, базы знаний, RAG, агентов и оценку качества."]
+         ],quiz:{q:"Какой показатель лучше всего говорит, что workflow полезен?",opts:["Количество использованных AI-сервисов","Реальная экономия времени и приемлемое качество","Количество промптов","Красивый интерфейс"],a:1}}
+      ]
+    }
+  ];
+
+  const nav = document.getElementById('moduleNav');
+  const area = document.getElementById('lessonArea');
+  const progress = document.getElementById('courseProgress');
+  const progressText = document.getElementById('progressText');
+  const lessonCount = document.getElementById('lessonCount');
+  const cert = document.getElementById('certificate');
+  const totalLessons = modules.reduce((n,m)=>n+m.lessons.length,0);
+  let current = Number(localStorage.getItem('aiCourseLesson') || 0);
+  if(current >= totalLessons) current = 0;
+
+  function flat(){
+    return modules.flatMap((m,mi)=>m.lessons.map((l,li)=>({m,mi,l,li})));
+  }
+  const lessons = flat();
+
+  function buildNav(){
+    nav.innerHTML = '<h3>Программа курса</h3>';
+    modules.forEach((m,mi)=>{
+      const b=document.createElement('button');
+      b.className='module-btn';
+      b.innerHTML=`<span class="mnum">${String(mi+1).padStart(2,'0')}</span><span><strong>${m.title.replace(/^Модуль \\d+\\. /,'')}</strong><small>${m.lessons.length} урока</small></span>`;
+      b.onclick=()=>selectLesson(modules[mi].lessons[0].title);
+      nav.appendChild(b);
+    });
+  }
+  function selectLesson(title){
+    const idx=lessons.findIndex(x=>x.l.title===title);
+    if(idx>=0){current=idx;render();}
+  }
+  function render(){
+    const x=lessons[current], l=x.l;
+    area.innerHTML='';
+    const h=document.createElement('h3'); h.textContent=l.title; area.appendChild(h);
+    const intro=document.createElement('p'); intro.className='lesson-intro'; intro.textContent=l.intro; area.appendChild(intro);
+    l.blocks.forEach(([head,body])=>{
+      const b=document.createElement('section'); b.className='lesson-block';
+      b.innerHTML=`<h4>${head}</h4><p>${body}</p>`;
+      area.appendChild(b);
+    });
+    const challenge=document.createElement('div'); challenge.className='challenge';
+    challenge.innerHTML=`<h4>Практика урока</h4><p>Выполните задание выше и сохраните свой результат. После этого переходите дальше.</p><textarea class="answer" placeholder="Запишите здесь свой ответ или рабочий шаблон…"></textarea>`;
+    area.appendChild(challenge);
+
+    const quiz=document.createElement('div'); quiz.className='quiz';
+    quiz.innerHTML=`<h4>Мини-проверка</h4><p>${l.quiz.q}</p>`;
+    l.quiz.opts.forEach((opt,i)=>{
+      const btn=document.createElement('button'); btn.className='quiz-option'; btn.textContent=opt;
+      btn.onclick=()=>{
+        $$('.quiz-option',quiz).forEach(x=>x.classList.remove('correct','wrong'));
+        if(i===l.quiz.a){btn.classList.add('correct');$('.feedback',quiz).textContent='Верно. Можно переходить дальше.';}
+        else {btn.classList.add('wrong');$('.feedback',quiz).textContent='Попробуйте ещё раз.';}
+      };
+      quiz.appendChild(btn);
+    });
+    const fb=document.createElement('div');fb.className='feedback';quiz.appendChild(fb);area.appendChild(quiz);
+
+    const actions=document.createElement('div'); actions.className='lesson-actions';
+    const prev=document.createElement('button'); prev.className='btn light'; prev.textContent='← Предыдущий'; prev.disabled=current===0;
+    const next=document.createElement('button'); next.className='btn'; next.textContent=current===totalLessons-1?'Завершить курс →':'Следующий урок →';
+    prev.onclick=()=>{current--;render();window.scrollTo({top:document.getElementById('course').offsetTop-75,behavior:'smooth'});}
+    next.onclick=()=>{if(current<totalLessons-1){current++;render();}else{localStorage.setItem('aiCourseCompleted','1');cert.classList.add('show');showToast('Курс завершён 🎉');} window.scrollTo({top:document.getElementById('course').offsetTop-75,behavior:'smooth'});}
+    actions.append(prev,next);area.appendChild(actions);
+
+    localStorage.setItem('aiCourseLesson',String(current));
+    const pct=Math.round(((current+1)/totalLessons)*100);
+    progress.style.width=pct+'%'; progressText.textContent=pct+'% курса'; lessonCount.textContent=`Урок ${current+1} из ${totalLessons}`;
+    $$('.module-btn',nav).forEach((b,i)=>b.classList.toggle('active',i===x.mi));
+    if(localStorage.getItem('aiCourseCompleted')==='1') cert.classList.add('show');
+  }
+
+  buildNav(); render();
+
+  // Make the existing "Начать обучение" CTA open the course area.
+  $$('.hero .btn').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault(); document.getElementById('course').scrollIntoView({behavior:'smooth'});
+  }));
+})();
+</script>
+
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const button = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('aiTheme');
+  const preferred = matchMedia('(prefers-color-scheme: dark)').matches;
+  const setTheme = theme => {
+    root.dataset.theme = theme;
+    if(button) button.textContent = theme === 'dark' ? '☀' : '☾';
+    localStorage.setItem('aiTheme', theme);
+  };
+  setTheme(saved || (preferred ? 'dark' : 'light'));
+  button?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+  });
+})();
+</script>
+
+</body>
+</html>
